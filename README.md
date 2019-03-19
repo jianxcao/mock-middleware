@@ -1,5 +1,8 @@
 # mock middleware
 
+1. `npm install @jianxcao/mock`
+
+
 ## clone from https://github.com/umijs
 
 
