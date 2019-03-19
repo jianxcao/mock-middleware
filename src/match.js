@@ -20,6 +20,7 @@ module.exports = function(opts = {}) {
     ...mockPaths
   ];
   let mockData = null;
+  let watcher;
 
   // registerBabel 和 clean require cache 包含整个 src 目录
   // 而 watch 只包含 pages/**/_mock.[jt]s
@@ -29,7 +30,7 @@ module.exports = function(opts = {}) {
   if (watch) {
     // chokidar 在 windows 下使用反斜杠组成的 glob 无法正确 watch 文件变动
     // ref: https://github.com/paulmillr/chokidar/issues/777
-    const watcher = chokidar.watch([...mockPaths], {
+    watcher = chokidar.watch([...mockPaths], {
       ignoreInitial: true
     });
     watcher.on('all', (event, file) => {
@@ -65,11 +66,14 @@ module.exports = function(opts = {}) {
     });
   }
 
-  return function (req) {
+  function mock(req) {
     const match = mockData && matchMock(req, mockData);
     if (match) {
       debug(`mock matched: [${match.method}] ${match.path}`);
       return match;
     }
   };
+  // 将watcher返回方便使用
+  mock.watcher = watcher;
+  return mock;
 };
