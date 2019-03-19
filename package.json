@@ -1,8 +1,9 @@
 {
-  "name": "mock",
+  "name": "@jianxcao/mock",
   "version": "0.0.1",
   "main": "src/index.js",
   "dependencies": {
+    "babel-eslint": "^10.0.1",
     "chokidar": "2.0.4",
     "co-body": "^6.0.0",
     "eslint": "^5.15.3",
@@ -28,8 +29,9 @@
   "engines": {
     "node": "8.0.0"
   },
+  "private": false, 
   "license": "MIT",
   "devDependencies": {
-    "babel-eslint": "^10.0.1"
+    
   }
 }
