@@ -2,7 +2,7 @@ const match = require('./match');
 const multer = require('multer');
 const BODY_PARSED_METHODS = ['post', 'put', 'patch', 'delete'];
 const parse = require('co-body');
-const { noop } = require('./utils')
+const { noop, isJSON } = require('./utils')
 
 const bodyDetail = async function (req, res, callback = noop) {
     const method = req.method.toLowerCase()
@@ -36,22 +36,26 @@ exports.koa = function (opt) {
                 await fileParse(ctx.request, ctx.response);
                 return await handler(ctx.request, ctx.response, next);
            }
-           return ctx.json ? ctx.json(handler) : ctx.body = handler;
+           return ctx.body = handler;
         }
         await next();
     }
 }
 
-exports.koa1 = function () {
-    return function * (ctx, next) {
+exports.koa1 = function (opt) {
+  const mo = match(opt);
+    return function* (next) {
+        const ctx = this;
         const result = mo(ctx.request);
         if (result) {
+            let handler = result.handler;
             yield bodyDetail(ctx.request, ctx.response);
             if (typeof handler === 'function') {
-                yield fileParse(ctx.request, ctx.response);
-                yield handler(ctx.request, ctx.response, next);
+              yield fileParse(ctx.request, ctx.response);
+              yield Promise.resolve(handler(ctx.request, ctx.response, next));
+              return;
            }
-           return ctx.json ? ctx.json(handler) : ctx.body = handler;
+           return ctx.body = handler;
         }
         yield next;
     }
@@ -61,16 +65,17 @@ exports.express = function () {
     return function (req, res, next) {
         const result = mo(req);
         if (result) {
+            const handler = result.handler;
             bodyDetail(req, res, () => {
                 if (typeof handler === 'function') {
-                    fileParse(req, res, () => {
-                        handler(req, res, next)
-                    });
+                  fileParse(req, res, () => {
+                    return handler(req, res, next)
+                  });
                }
                return res.json ? res.json(handler) : res.body = handler;
             });
         } else {
-            next();
+          next();
         }
     }
 }
