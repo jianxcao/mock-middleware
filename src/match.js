@@ -12,12 +12,12 @@ module.exports = function(opts = {}) {
     errors = [],
     config,
     watch,
-    onStart = noop,
+    onStart = noop
   } = opts;
   const { absMockPath, absConfigPath, absConfigPathWithTS } = getPaths(cwd);
   const mockPaths = [absMockPath, absConfigPath, absConfigPathWithTS];
   const paths = [
-    ...mockPaths,
+    ...mockPaths
   ];
   let mockData = null;
 
@@ -30,7 +30,7 @@ module.exports = function(opts = {}) {
     // chokidar 在 windows 下使用反斜杠组成的 glob 无法正确 watch 文件变动
     // ref: https://github.com/paulmillr/chokidar/issues/777
     const watcher = chokidar.watch([...mockPaths], {
-      ignoreInitial: true,
+      ignoreInitial: true
     });
     watcher.on('all', (event, file) => {
       debug(`[${event}] ${file}, reload mock data`);
@@ -38,7 +38,7 @@ module.exports = function(opts = {}) {
       cleanRequireCache();
       fetchMockData();
       if (!errors.length) {
-        signale.success(`Mock files parse success`);
+        signale.success('Mock files parse success');
       }
     });
   }
@@ -61,7 +61,7 @@ module.exports = function(opts = {}) {
       config,
       onError(e) {
         errors.push(e);
-      },
+      }
     });
   }
 
@@ -72,4 +72,4 @@ module.exports = function(opts = {}) {
       return match;
     }
   };
-}
+};

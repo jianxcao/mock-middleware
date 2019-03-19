@@ -8,6 +8,6 @@ module.exports = function(cwd) {
   return {
     absMockPath,
     absConfigPath,
-    absConfigPathWithTS,
+    absConfigPathWithTS
   };
-}
+};

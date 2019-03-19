@@ -24,7 +24,7 @@ function parseKey(key) {
   );
   return {
     method,
-    path,
+    path
   };
 }
 
@@ -43,7 +43,7 @@ function getMockFiles(opts) {
     let mockFiles = glob
       .sync('mock/**/*.[jt]s', {
         cwd,
-        ignore: (config.mock || {}).exclude || [],
+        ignore: (config.mock || {}).exclude || []
       })
       .map(p => join(cwd, p));
     debug(
@@ -61,7 +61,7 @@ function getMockConfigFromFiles(files) {
       const m = require(mockFile); // eslint-disable-line
       memo = {
         ...memo,
-        ...(m.default || m),
+        ...(m.default || m)
       };
       return memo;
     } catch (e) {
@@ -92,7 +92,7 @@ function normalizeConfig(config) {
       path,
       re,
       keys,
-      handler,
+      handler
     });
     return memo;
   }, []);
@@ -104,7 +104,7 @@ function getMockData(opts) {
     return normalizeConfig(getMockConfig(opts));
   } catch (e) {
     onError(e);
-    signale.error(`Mock files parse failed`);
+    signale.error('Mock files parse failed');
   }
 }
 module.exports = {
@@ -112,5 +112,5 @@ module.exports = {
   getMockConfigFromFiles,
   getMockConfig,
   normalizeConfig,
-  getMockData,
-}
+  getMockData
+};
