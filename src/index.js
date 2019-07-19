@@ -57,7 +57,7 @@ exports.koa1 = function (opt) {
       }
       return ctx.body = handler;
     }
-    yield next;
+    yield * next;
   };
 };
 
