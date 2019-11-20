@@ -1,6 +1,6 @@
 {
   "name": "@jianxcao/mock",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "src/index.js",
   "dependencies": {
     "babel-eslint": "^10.0.1",
@@ -27,11 +27,9 @@
   "bugs": "https://github.com/jianxcao/mock-middleware/issues",
   "authors": "jianxcao",
   "engines": {
-    "node": "8.0.0"
+    "node": ">=8.0.0"
   },
-  "private": false, 
+  "private": false,
   "license": "MIT",
-  "devDependencies": {
-    
-  }
+  "devDependencies": {}
 }
