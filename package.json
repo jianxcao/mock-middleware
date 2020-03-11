@@ -27,7 +27,7 @@
   "bugs": "https://github.com/jianxcao/mock-middleware/issues",
   "authors": "jianxcao",
   "engines": {
-    "node": "8.0.0"
+    "node": ">=8.0.0"
   },
   "private": false,
   "license": "MIT",
