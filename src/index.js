@@ -11,6 +11,7 @@ const bodyDetail = async function(req, res, callback = noop) {
     req.body = Object.assign({}, req.body, body);
     callback();
   }
+  callback();
 };
 
 const fileParse = function(req, res, callback = noop) {
