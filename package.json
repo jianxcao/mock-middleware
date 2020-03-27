@@ -1,6 +1,6 @@
 {
   "name": "@jianxcao/mock",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "src/index.js",
   "dependencies": {
     "babel-eslint": "^10.0.1",
